@@ -62,4 +62,3 @@ echo "****** WARNING *****"
 echo ""
 
 sudo systemctl daemon-reload && sudo systemctl restart kubelet && sudo kubeadm reset -f 
-

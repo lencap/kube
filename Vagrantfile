@@ -6,10 +6,10 @@ Vagrant.configure("2") do |config|
   config.vm.box = "centos7-6-1810-virtualbox"
 
   vm1_name = "kmaster"
-  vm1_ip   = "10.12.13.2"
+  vm1_ip   = "10.11.12.2"
 
   vm2_name = "kminion"
-  vm2_ip   = "10.12.13.3"
+  vm2_ip   = "10.11.12.3"
 
   config.vm.define vm1_name do |vm1|
     vm1.vm.hostname = vm1_name
