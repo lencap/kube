@@ -2,6 +2,7 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
+
   config.vm.box = "centos7-6-1810-virtualbox"
 
   vm1_name = "kmaster"
