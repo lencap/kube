@@ -7,13 +7,13 @@ Bring up the 2 nodes (kmaster and kminion), and open a separate SSH shell sessio
   * `vagrant ssh kmaster`
   * `vagrant ssh kminion`
 
-On master node, init the cluster:
+Initialize the cluster from kmaster:
   * `kubeadm config images pull`
   * `kubeadm init --service-cidr 10.96.0.0/12 --pod-network-cidr=192.168.0.0/16 --apiserver-advertise-address 10.11.12.2`
 
 If above runs correctly, it will tell you how to:
   * Connect to the cluser as a regular user and,
-  * How to add additional nodes to the cluster
+  * How to add additional nodes to the cluster (see below sample message that will be displayed)
 
 ```
 Your Kubernetes master has initialized successfully!
@@ -36,6 +36,7 @@ as root:
 
 Confirm both nodes are running:
   * `kubectl get nodes`
+
 ```
 NAME      STATUS   ROLES    AGE   VERSION
 kmaster   Ready    master   19m   v1.13.2
@@ -53,3 +54,6 @@ Restart Kuberlet engine
 
 Verify Cluster info
   * `kubectl cluster-info`
+
+## Additional Steps
+It's highly recommended you install the https://github.com/ahmetb/kubectx utility to make switching context and namespaces more seamlessly.
