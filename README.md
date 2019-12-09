@@ -1,5 +1,5 @@
-# kube
-A minimally viable [Kubernetes](https://kubernetes.io/) cluster with [kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/) using [Vagrant](https://www.vagrantup.com/intro/index.html). Refer to [this repo](https://github.com/lencap/packer) to easily create the Vagrant box.
+## kube
+A minimalist [Kubernetes](https://kubernetes.io/) cluster with [kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/) using [Vagrant](https://www.vagrantup.com/intro/index.html). Refer to [this repo](https://github.com/lencap/images-centos) to easily create the Vagrant box.
 
 ## Quick Start Guide
 Bring up the 2 nodes (kmaster and kminion), and open a separate SSH shell session to each:
