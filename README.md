@@ -56,4 +56,4 @@ Verify Cluster info
   * `kubectl cluster-info`
 
 ## Additional Steps
-It's highly recommended you install the https://github.com/ahmetb/kubectx utility to make switching context and namespaces more seamlessly.
+Install the https://github.com/ahmetb/kubectx utility to switchg context and namespaces more seamlessly.
