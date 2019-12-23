@@ -4,7 +4,7 @@
 # Adapted from https://8gwifi.org/docs/kube-install.jsp
 
 # |-------------------------------------------------|----------|----------|
-# | Requirement                                     | kmaster  | kminion  |
+# | Requirement                                     | k101     | k102     |
 # |-------------------------------------------------|----------|----------|
 # | Disable system swap and SELinux                 | Y        | Y        |
 # | remove any swap entry from /etc/fstab           | Y        | Y        |
