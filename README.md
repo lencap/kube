@@ -1,11 +1,12 @@
 ## kube
+=======
 A minimalist [Kubernetes](https://kubernetes.io/) cluster with [kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/) using [Vagrant](https://www.vagrantup.com/intro/index.html). Refer to [this repo](https://github.com/lencap/images-centos) to easily create the Vagrant box.
 
 ## Quick Start Guide
-Bring up the 2 nodes (kmaster and kminion), and open a separate SSH shell session to each:
+Bring up the 2 nodes and open a separate SSH shell session to each:
   * `vagrant up`
-  * `vagrant ssh kmaster`
-  * `vagrant ssh kminion`
+  * `vagrant ssh k101`
+  * `vagrant ssh k102`
 
 Initialize the cluster from kmaster:
   * `kubeadm config images pull`
@@ -39,8 +40,8 @@ Confirm both nodes are running:
 
 ```
 NAME      STATUS   ROLES    AGE   VERSION
-kmaster   Ready    master   19m   v1.13.2
-kminion   Ready    <none>   11m   v1.13.2
+k101      Ready    master   19m   v1.13.2
+k102      Ready    <none>   11m   v1.13.2
 ```
 
 Install Calico Networking
