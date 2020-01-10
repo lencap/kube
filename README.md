@@ -47,8 +47,8 @@ Confirm both nodes are running:
 
 ```
 NAME      STATUS   ROLES    AGE   VERSION
-k101      Ready    master   19m   v1.13.2
-k102      Ready    <none>   11m   v1.13.2
+k2        Ready    master   19m   v1.13.2
+k3        Ready    <none>   11m   v1.13.2
 ```
 
 Install Calico Networking
