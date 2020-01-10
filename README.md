@@ -1,17 +1,24 @@
-## kube
+# Simple Kubernetes Cluster
 A minimalist [Kubernetes](https://kubernetes.io/) cluster with [kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/) using [Vagrant](https://www.vagrantup.com/intro/index.html). Refer to [this repo](https://github.com/lencap/images-centos) to easily create the Vagrant box.
 
 ## Quick Start Guide
-Bring up the 2 nodes and open a separate SSH shell session to each:
-  * `vagrant up`
-  * `vagrant ssh k101`
-  * `vagrant ssh k102`
+1. The first step is to install [vm](https://github.com/lencap/vm) by doing `brew install lencap/tools/vm`. This is small utility that's acts a bit like Vagrant. After installation, make sure you run `vm` to see its usage and to ensure that 3 essential files are created under `~/.vm`.
 
-Initialize the cluster from master k101 host:
+2. The next step is create the centos7.7.1908-vm.ova image by following the steps described when you run `vm imgdawn`.
+
+3. Final step is to run `vm prov`
+
+The last command should have provisioned the 2 VMs. You may have to adjust the CPUs and Memory settings in the `vm.conf` file, to suit your environment.
+
+4. Open a separate SSH shell session to each:
+  * `vm ssh k2`
+  * `vm ssh k3`
+
+5. Initialize the cluster from master k2 host:
   * `kubeadm config images pull`
-  * `kubeadm init --service-cidr 10.96.0.0/12 --pod-network-cidr=192.168.0.0/16 --apiserver-advertise-address 10.10.10.2`
+  * `kubeadm init --service-cidr 10.96.0.0/12 --pod-network-cidr=192.168.0.0/16 --apiserver-advertise-address 10.11.12.2`
 
-If above runs correctly, it will tell you how to:
+6. If above runs correctly, it will tell you how to:
   * Connect to the cluser as a regular user and,
   * How to add additional nodes to the cluster (see below sample message that will be displayed)
 
@@ -34,6 +41,7 @@ as root:
   kubeadm join 10.10.10.2:6443 --token dmki54.hv3740t9xlw587nr --discovery-token-ca-cert-hash sha256:f67423863bd7ced5b975e61c8109e3988c42d568c1fbfed22d88cb3d53f970a0
 ```
 
+## Other Steps
 Confirm both nodes are running:
   * `kubectl get nodes`
 
@@ -55,5 +63,5 @@ Restart Kuberlet engine
 Verify Cluster info
   * `kubectl cluster-info`
 
-## Additional Steps
+## Notes
 Install the https://github.com/ahmetb/kubectx utility to switchg context and namespaces more seamlessly.
