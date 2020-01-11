@@ -38,6 +38,7 @@ as root:
 
   kubeadm join 10.10.10.2:6443 --token dmki54.hv3740t9xlw587nr --discovery-token-ca-cert-hash sha256:f67423863bd7ced5b975e61c8109e3988c42d568c1fbfed22d88cb3d53f970a0
 ```
+Note, you'll need to use `sudo` for above command.
 
 ## Other Steps
 Confirm both nodes are running:
@@ -45,12 +46,12 @@ Confirm both nodes are running:
 
 ```
 NAME      STATUS   ROLES    AGE   VERSION
-k2        Ready    master   19m   v1.13.2
-k3        Ready    <none>   11m   v1.13.2
+k2        Ready    master   19m   v1.17.0
+k3        Ready    <none>   11m   v1.17.0
 ```
 
-Install Calico Networking
-  * `kubectl apply -f https://docs.projectcalico.org/v3.4/getting-started/kubernetes/installation/hosted/calico.yaml`
+Install latest Calico Networking (there may be a newer one)
+  * `kubectl apply -f https://docs.projectcalico.org/v3.11/getting-started/kubernetes/installation/hosted/calico.yaml`
 
 Show all resources
   * `kubectl get all --all-namespaces`
@@ -62,4 +63,4 @@ Verify Cluster info
   * `kubectl cluster-info`
 
 ## Notes
-Install the https://github.com/ahmetb/kubectx utility to switchg context and namespaces more seamlessly.
+Install the https://github.com/ahmetb/kubectx utility to switch context and namespaces more seamlessly.
