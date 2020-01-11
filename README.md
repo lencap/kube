@@ -1,12 +1,12 @@
 # Simple Kubernetes Cluster
-A minimalist [Kubernetes](https://kubernetes.io/) cluster with [kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/) using [Vagrant](https://www.vagrantup.com/intro/index.html). Refer to [this repo](https://github.com/lencap/images-centos) to easily create the Vagrant box.
+A minimalist [Kubernetes](https://kubernetes.io/) cluster with [kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/) using [vm](https://github.com/lencap/vm), which is a small utility that behaves a bit like Vagrant. 
 
 ## Quick Start Guide
-1. The first step is to install [vm](https://github.com/lencap/vm) by doing `brew install lencap/tools/vm`. This is a small utility that acts a bit like Vagrant. After installation, make sure you run `vm` to see its usage and to ensure that 3 essential files are created under `~/.vm`.
+1. The first step is to install [vm](https://github.com/lencap/vm) by doing `brew install lencap/tools/vm`. After its  installation, make sure you run `vm` to see its usage and to ensure that 3 essential files are created under `~/.vm`.
 
 2. The next step is to create the *centos7.7.1908-vm.ova* image by following the steps described when you run `vm imgdawn`.
 
-3. Next, run `vm prov` to provision the 2 VMs. Beforehand, you may have to adjust the CPUs and Memory settings in the `vm.conf` file to suit your environment.
+3. Beforehand, you may have to adjust the CPUs and Memory settings in the `vm.conf` file to suit your environment. Next, run `vm prov` to provision the 2 VMs. 
 
 4. Open a separate SSH shell session to each:
   * `vm ssh k2`
