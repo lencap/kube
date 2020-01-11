@@ -41,10 +41,10 @@ EOF
 sudo yum install -y kubelet kubeadm kubectl
 sudo systemctl enable kubelet && sudo systemctl start kubelet
 sudo mkdir /etc/systemd/system/kubelet.service.d
-sudo bash -c 'cat > /etc/systemd/system/kubelet.service.d/10-kubeadm.conf' << EOF
-[Service]
-Environment="KUBELET_CGROUP_ARGS=--cgroup-driver=cgroupfs"
-EOF
+#sudo bash -c 'cat > /etc/systemd/system/kubelet.service.d/10-kubeadm.conf' << EOF
+#[Service]
+#Environment="KUBELET_CGROUP_ARGS=--cgroup-driver=cgroupfs"
+#EOF
 echo "=== docker info | grep -i cgroup ====================="
 sudo docker info | grep -i cgroup
 echo "======================================================"
