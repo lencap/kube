@@ -13,8 +13,8 @@ A minimalist [Kubernetes](https://kubernetes.io/) cluster with [kubeadm](https:/
   * `vm ssh k3`
 
 5. Initialize the cluster from master k2 host:
-  * `kubeadm config images pull`
-  * `kubeadm init --service-cidr 10.96.0.0/12 --pod-network-cidr=192.168.0.0/16 --apiserver-advertise-address 10.11.12.2`
+  * `sudo kubeadm config images pull`
+  * `sudo kubeadm init --service-cidr 10.96.0.0/12 --pod-network-cidr=192.168.0.0/16 --apiserver-advertise-address 10.11.12.2`
 
 6. If above runs correctly, it will tell you how to:
   * Connect to the cluser as a regular user and,
