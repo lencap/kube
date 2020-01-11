@@ -3,6 +3,7 @@
 
 # Adapted from https://8gwifi.org/docs/kube-install.jsp
 # Requirement                                      k2   k3
+# Update /etc/hosts file                           Y    Y
 # Disable system swap and SELinux                  Y    Y
 # remove any swap entry from /etc/fstab            Y    Y
 # net.bridge.bridge-nf-call-iptables is set to 1   Y    Y
@@ -12,6 +13,10 @@
 # Install kubectl                                  Y    N
 # Configure docker cgroupsfs                       Y    N
 # Creating Network Addons (flannel/Calico)         Y    N
+sudo bash -c 'cat >> /etc/hosts' << EOF
+10.11.12.2    k2
+10.11.12.3    k3 
+EOF
 sudo swapoff -a
 sudo setenforce 0
 sudo bash -c 'cat > /etc/sysctl.d/k8s.conf' << EOF
