@@ -4,9 +4,9 @@ A minimalist [Kubernetes](https://kubernetes.io/) cluster with [kubeadm](https:/
 ## Quick Start Guide
 1. The first step is to install [vm](https://github.com/lencap/vm) by doing `brew install lencap/tools/vm`. After its  installation, make sure you run `vm` to see its usage and to ensure that 3 essential files are created under `~/.vm`.
 
-2. The next step is to create the *centos7.7.1908-vm.ova* image by following the steps described when you run `vm imgdawn`.
+2. The next step is to create the *centos7.7.1908-vm.ova* image by running `vm imgpack` and following those steps.
 
-3. Beforehand, you may have to adjust the CPUs and Memory settings in the `vm.conf` file to suit your environment. Next, run `vm prov` to provision the 2 VMs. 
+3. Beforehand, adjust the number of CPUs and Memory settings in `vm.conf` to better suit your environment. Next, run `vm prov` to provision the 2 VMs. 
 
 4. Open a separate SSH shell session to each:
   * `vm ssh k2`
