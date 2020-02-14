@@ -16,10 +16,7 @@ A minimalist [Kubernetes](https://kubernetes.io/) cluster with [kubeadm](https:/
   * `sudo kubeadm config images pull`
   * `sudo kubeadm init --service-cidr 10.96.0.0/12 --pod-network-cidr=192.168.0.0/16 --apiserver-advertise-address 10.11.12.2`
 
-6. If above runs correctly, it will tell you how to:
-  * Connect to the cluser as a regular user and,
-  * How to add additional nodes to the cluster (see below sample message that will be displayed)
-
+6. If above runs correctly, it will tell you something like this:
 ```
 Your Kubernetes master has initialized successfully!
 
@@ -36,9 +33,9 @@ Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
 You can now join any number of machines by running the following on each node
 as root:
 
-  kubeadm join 10.11.12.2:6443 --token dmki54.hv3740t9xlw587nr --discovery-token-ca-cert-hash sha256:f67423863bd7ced5b975e61c8109e3988c42d568c1fbfed22d88cb3d53f970a0
+  sudo kubeadm join 10.11.12.2:6443 --token dmki54.hv3740t9xlw587nr --discovery-token-ca-cert-hash sha256:f67423863bd7ced5b975e61c8109e3988c42d568c1fbfed22d88cb3d53f970a0
 ```
-Note, you'll need to use `sudo` for above command.
+Above token to join other nodes will only be good for 24 hours. If it expires, to generate a new one run: `sudo kubeadm token create --print-join-command` on the master node, and use the outputted join command. Run all these commands using `sudo`.
 
 ## Other Steps
 Confirm both nodes are running:
