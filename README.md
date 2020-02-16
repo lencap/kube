@@ -13,10 +13,10 @@ A minimalist [Kubernetes](https://kubernetes.io/) cluster with [kubeadm](https:/
   * `vm ssh k3`
 
 5. Initialize the cluster from master k2 host:
-  * `sudo kubeadm config images pull`
   * `sudo kubeadm init --service-cidr 10.96.0.0/12 --pod-network-cidr=192.168.0.0/16 --apiserver-advertise-address 10.11.12.2`
+  * If you're seeing issues downloading the needed images you can manually do: `sudo kubeadm config images pull`
 
-6. If above runs correctly, it will tell you something like this:
+6. If `kubeadm init` command ran correctly, it will say something like:
 ```
 Your Kubernetes master has initialized successfully!
 
@@ -38,6 +38,9 @@ as root:
 Above token to join other nodes will only be good for 24 hours. If it expires, to generate a new one run: `sudo kubeadm token create --print-join-command` on the master node, and use the outputted join command. Run all these commands using `sudo`.
 
 ## Other Steps
+If you're having issues and want to reset a recently tried setup, you can clear everything by running:
+  * `sudo kubeadm reset -f` 
+
 Confirm both nodes are running:
   * `kubectl get nodes`
 
