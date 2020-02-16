@@ -38,8 +38,10 @@ as root:
 Above token to join other nodes will only be good for 24 hours. If it expires, to generate a new one run: `sudo kubeadm token create --print-join-command` on the master node, and use the outputted join command. Run all these commands using `sudo`.
 
 ## Other Steps
-If you're having issues and want to reset a recently tried setup, you can clear everything by running:
+If you're having issues and want to tear everything down and start over:
   * `sudo kubeadm reset -f` 
+  * `iptables -F && iptables -t nat -F && iptables -t mangle -F && iptables -X`
+  * `ipvsadm -C`
 
 Confirm both nodes are running:
   * `kubectl get nodes`
