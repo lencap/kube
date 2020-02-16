@@ -52,9 +52,9 @@ k2        Ready    master   19m   v1.17.0
 k3        Ready    <none>   11m   v1.17.0
 ```
 
-Install Calico as a Pod network add-on (there may be a newer one)
-  * `curl -O https://docs.projectcalico.org/v3.11/getting-started/kubernetes/installation/hosted/calico.yaml`
-  * `vi calico.yaml` and make all necessary edits
+Install Calico as the Pod network add-on (get latest main version):
+  * `curl -O https://docs.projectcalico.org/v3.12/manifests/calico.yaml`
+  * `vi calico.yaml` and make any necessary adjustments
   * `kubectl apply -f calico.yaml`
 
 Show all resources
