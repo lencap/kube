@@ -35,13 +35,14 @@ EOF
 sudo yum install -y kubelet kubeadm kubectl ipvsadm
 sudo systemctl enable kubelet && sudo systemctl start kubelet
 
-echo "Setting Cgroup Driver"
-# docker info | -i cgroup
-sudo mkdir -p /etc/systemd/system/kubelet.service.d
-sudo bash -c 'cat > /etc/systemd/system/kubelet.service.d/10-kubeadm.conf' << EOF
-[Service]
-Environment="KUBELET_CGROUP_ARGS=--cgroup-driver=systemd"
-EOF
+#echo "Setting Cgroup Driver"
+## docker info | -i cgroup
+#sudo mkdir -p /etc/systemd/system/kubelet.service.d
+#sudo bash -c 'cat > /etc/systemd/system/kubelet.service.d/10-kubeadm.conf' << EOF
+#[Service]
+#Environment="KUBELET_CGROUP_ARGS=--cgroup-driver=systemd"
+#EOF
+
 sudo systemctl daemon-reload && sudo systemctl restart kubelet
 
 echo "Installing calicoctl"
