@@ -33,9 +33,7 @@ A minimalist [Kubernetes](https://kubernetes.io/) cluster with [kubeadm](https:/
 
 ## Other Steps
 1. If you're having issues and want to tear everything down and start over:
-  * `sudo kubeadm reset -f` 
-  * `iptables -F && iptables -t nat -F && iptables -t mangle -F && iptables -X`
-  * `ipvsadm -C`
+  * `sudo kubeadm reset -f && iptables -F && iptables -t nat -F && iptables -t mangle -F && iptables -X && ipvsadm -C`
 
 2. Confirm both nodes are running:
   * `kubectl get nodes`
@@ -47,7 +45,7 @@ k3        Ready    <none>   11m   v1.17.0
 ```
 
 3. Restart Kuberlet engine
-  * `systemctl restart kubelet && systemctl status kubelet`
+  * `systemctl daemon-reload && systemctl restart kubelet && systemctl status kubelet`
 
 4. Verify Cluster info
   * `kubectl cluster-info`
