@@ -14,36 +14,30 @@ A minimalist [Kubernetes](https://kubernetes.io/) cluster with [kubeadm](https:/
 
 5. Initialize the cluster from master k2 host:
   * `sudo kubeadm init --service-cidr 10.96.0.0/12 --pod-network-cidr=192.168.0.0/16 --apiserver-advertise-address 10.11.12.2`
-  * If you're seeing issues downloading the needed images you can manually do: `sudo kubeadm config images pull`
+  * Above `--pod-network-cidr` is needed for Calico neetworking.
+  
+6. If Kubernetes master has initialized successfully, setup `kubectl` wherever you need to from the files in the k2 host:
+  * `mkdir -p $HOME/.kube`
+  * `sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config`
+  * `sudo chown $(id -u):$(id -g) $HOME/.kube/config`
 
-6. If `kubeadm init` command ran correctly, it will say something like:
-```
-Your Kubernetes master has initialized successfully!
+7. Install Calico as the Pod network add-on (get latest non-beta version):
+  * `curl -O https://docs.projectcalico.org/v3.12/manifests/calico.yaml`
+  * `vi calico.yaml` and make any necessary adjustments
+  * `kubectl apply -f calico.yaml`
+  * Afterwards check that the CoreDNS Pod is Running in the output of `kubectl get pods --all-namespaces`. And once the CoreDNS Pod is up and running, you can continue by joining your nodes.
 
-To start using your cluster, you need to run the following as a regular user:
-
-  mkdir -p $HOME/.kube
-  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-  sudo chown $(id -u):$(id -g) $HOME/.kube/config
-
-You should now deploy a pod network to the cluster.
-Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
-  https://kubernetes.io/docs/concepts/cluster-administration/addons/
-
-You can now join any number of machines by running the following on each node
-as root:
-
-  sudo kubeadm join 10.11.12.2:6443 --token dmki54.hv3740t9xlw587nr --discovery-token-ca-cert-hash sha256:f67423863bd7ced5b975e61c8109e3988c42d568c1fbfed22d88cb3d53f970a0
-```
-Above token to join other nodes will only be good for 24 hours. If it expires, to generate a new one run: `sudo kubeadm token create --print-join-command` on the master node, and use the outputted join command. Run all these commands using `sudo`.
+8. Join k3 host as a member node:
+  * On k2 host run: `sudo kubeadm token create --print-join-command`
+  * On k3 host use output of above command to join cluster (as root, sudo) 
 
 ## Other Steps
-If you're having issues and want to tear everything down and start over:
+1. If you're having issues and want to tear everything down and start over:
   * `sudo kubeadm reset -f` 
   * `iptables -F && iptables -t nat -F && iptables -t mangle -F && iptables -X`
   * `ipvsadm -C`
 
-Confirm both nodes are running:
+2. Confirm both nodes are running:
   * `kubectl get nodes`
 
 ```
@@ -52,19 +46,11 @@ k2        Ready    master   19m   v1.17.0
 k3        Ready    <none>   11m   v1.17.0
 ```
 
-Install Calico as the Pod network add-on (get latest main version):
-  * `curl -O https://docs.projectcalico.org/v3.12/manifests/calico.yaml`
-  * `vi calico.yaml` and make any necessary adjustments
-  * `kubectl apply -f calico.yaml`
-
-Show all resources
-  * `kubectl get all --all-namespaces`
-
-Restart Kuberlet engine
+3. Restart Kuberlet engine
   * `systemctl restart kubelet && systemctl status kubelet`
 
-Verify Cluster info
+4. Verify Cluster info
   * `kubectl cluster-info`
 
 ## Notes
-Install the https://github.com/ahmetb/kubectx utility to switch context and namespaces more seamlessly.
+Install the https://github.com/ahmetb/kubectx utility wherever you're running `kubectl` from, to more easily switch context and namespaces.
