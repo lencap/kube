@@ -1,12 +1,14 @@
 # Simple Kubernetes Cluster
-A minimalist [Kubernetes](https://kubernetes.io/) cluster with [kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/) using [vm](https://github.com/lencap/vm), which is a small utility that behaves a bit like Vagrant. 
+A minimalist [Kubernetes](https://kubernetes.io/) cluster with [kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/) using the [vm](https://github.com/lencap/vm), which is a small utility that behaves a bit like Vagrant. 
 
 ## Quick Start Guide
-1. The first step is to install [vm](https://github.com/lencap/vm) by doing `brew install lencap/tools/vm`. After its  installation, make sure you run `vm` to see its usage and to ensure that 3 essential files are created under `~/.vm`.
+1. The first step is to install the latest version of [vm](https://github.com/lencap/vm):
+  * `brew install lencap/tools/vm`
+  * Afterwards, run `vm` to get familiar with its usage, and to ensure that the SSH keys are created under `~/.vm`.
 
-2. The next step is to create the *centos7.7.1908-vm.ova* image by running `vm imgpack` and following those steps.
+2. The next step is to create the *centos7.7.1908-vm.ova* image by running `vm imgpack` and following those instructions.
 
-3. Beforehand, adjust the number of CPUs and Memory settings in `vm.conf` to better suit your environment. Next, run `vm prov` to provision the 2 VMs. 
+3. Beforehand, adjust the number of CPUs and Memory settings in `kube.conf` to better suit your environment. Next, run `vm prov kube.conf` to provision the 2 VMs. 
 
 4. Open a separate SSH shell session to each:
   * `vm ssh k2`
@@ -14,7 +16,7 @@ A minimalist [Kubernetes](https://kubernetes.io/) cluster with [kubeadm](https:/
 
 5. Initialize the cluster from master k2 host:
   * `sudo kubeadm init --service-cidr 10.96.0.0/12 --pod-network-cidr=192.168.0.0/16 --apiserver-advertise-address 10.11.12.2`
-  * Above `--pod-network-cidr` is needed for Calico neetworking.
+  * The `--pod-network-cidr`setting is needed for Calico neetworking.
   
 6. If Kubernetes master has initialized successfully, setup `kubectl` wherever you need to from the files in the k2 host:
   * `mkdir -p $HOME/.kube`
