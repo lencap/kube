@@ -1,6 +1,12 @@
 #!/bin/bash
-# bootstrap.sh
+# k8s-bootstrap-centos
 # Adapted from https://8gwifi.org/docs/kube-install.jsp
+
+osDist=$(hostnamectl | awk '/Operating System/ {print $3}' | tr 'A-Z' 'a-z')
+if [[ "$osDist" != "centos" ]]; then
+    echo"==> This $0 script only runs on CentOS"
+    exit 1
+fi
 
 sudo bash -c 'cat >> /etc/hosts' << EOF
 10.11.12.2    k2

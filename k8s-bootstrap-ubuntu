@@ -1,0 +1,65 @@
+#!/bin/bash
+# k8s-bootstrap-ubuntu
+# For Adapted from https://8gwifi.org/docs/kube-install.jsp
+
+osDist=$(hostnamectl | awk '/Operating System/ {print $3}' | tr 'A-Z' 'a-z')
+if [[ "$osDist" != "ubuntu" ]]; then
+    echo"==> This $0 script only runs on Ubuntu"
+    exit 1
+fi
+
+echo "==> Updated /etc/hosts"
+sudo bash -c 'cat >> /etc/hosts' << EOF
+10.11.12.2    k2
+10.11.12.3    k3 
+EOF
+sudo sed -i "/^127\.0\.1\.1.*/d" /etc/hosts
+
+echo "==> Disable swap and SELinux"
+sudo swapoff -a
+sudo setenforce 0
+
+echo "==> Update IP Tables"
+sudo bash -c 'cat > /etc/sysctl.d/k8s.conf' << EOF
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF
+sudo sysctl --system
+
+echo "==> Update system packages and install and enable Docker"
+apt-get update 
+apt-get install -y docker.io
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo systemctl status docker
+
+echo "==> Setting up Kubernetes apt repository, and installing"
+apt-get install -y apt-transport-https curl
+apt-get install -y docker.io
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+sudo bash -c 'cat > /etc/apt/sources.list.d/kubernetes.list' <<EOF
+deb http://apt.kubernetes.io/ kubernetes-yakkety main
+EOF
+apt-get update
+apt-get install -y kubelet kubeadm kubectl
+
+echo "==> Enable and start Kubernetes "
+systemctl enable kubelet  
+systemctl start kubelet
+
+#echo "==> Setting Cgroup Driver"
+## docker info | -i cgroup
+#sudo mkdir -p /etc/systemd/system/kubelet.service.d
+#sudo bash -c 'cat > /etc/systemd/system/kubelet.service.d/10-kubeadm.conf' << EOF
+#[Service]
+#Environment="KUBELET_CGROUP_ARGS=--cgroup-driver=systemd"
+#EOF
+
+echo "==> Reload daemon and restart Kubernetes"
+sudo systemctl daemon-reload && sudo systemctl restart kubelet
+
+echo "Updating /root/.bashrc"
+sudo bash -c 'echo "export PATH=\$PATH:/usr/local/bin" >> /root/.bashrc'
+sudo bash -c 'echo -e "alias vi=vim\nalias h=history" >> /root/.bashrc'
+
+exit 0
