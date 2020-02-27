@@ -6,9 +6,9 @@ A minimalist [Kubernetes](https://kubernetes.io/) cluster with [kubeadm](https:/
   * `brew install lencap/tools/vm`
   * Afterwards, run `vm` to get familiar with its usage, and to ensure that the SSH keys are created under `~/.vm`.
 
-2. The next step is to create the *centos7.7.1908-vm.ova* image by running `vm imgpack` and following those instructions.
+2. The next step is to create the `centos7.7.1908.ova` or `ubuntu1804.ova` OS image by running `vm imgpack` and following those instructions.
 
-3. Beforehand, adjust the number of CPUs and Memory settings in `kube.conf` to better suit your environment. Next, run `vm prov kube.conf` to provision the 2 VMs. 
+3. Beforehand, adjust the number of CPUs and Memory settings in `kube-<OS>.conf` to better suit your need. Then run `vm prov kube-<OS>.conf` to provision the 2 VMs. 
 
 4. Open a separate SSH shell session to each:
   * `vm ssh k2`
