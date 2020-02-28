@@ -34,10 +34,10 @@ A minimalist [Kubernetes](https://kubernetes.io/) cluster with [kubeadm](https:/
   * On k3 host use output of above command to join cluster (as root, sudo) 
 
 ## Other Steps
-1. If you're having issues and want to tear everything down and start over:
+* If you're having issues and want to tear everything down and start over. The easiest thing to do is to delete the two VMs with `vm del k2 -f`, and on, then reprovision. Alternatively you can try:
   * `sudo kubeadm reset -f && iptables -F && iptables -t nat -F && iptables -t mangle -F && iptables -X && ipvsadm -C`
 
-2. Confirm both nodes are running:
+* Confirm both nodes are running:
   * `kubectl get nodes`
 
 ```
@@ -46,10 +46,10 @@ k2        Ready    master   19m   v1.17.0
 k3        Ready    <none>   11m   v1.17.0
 ```
 
-3. Restart Kuberlet engine
+* Restart Kuberlet engine
   * `systemctl daemon-reload && systemctl restart kubelet && systemctl status kubelet`
 
-4. Verify Cluster info
+* Verify Cluster info
   * `kubectl cluster-info`
 
 ## Notes
