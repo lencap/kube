@@ -1,6 +1,5 @@
 #!/bin/bash
 # k8s-bootstrap-centos
-# Adapted from https://8gwifi.org/docs/kube-install.jsp
 
 osDist=$(hostnamectl | awk '/Operating System/ {print $3}' | tr 'A-Z' 'a-z')
 if [[ "$osDist" != "centos" ]]; then
@@ -8,9 +7,13 @@ if [[ "$osDist" != "centos" ]]; then
     exit 1
 fi
 
+echo "==> Updated /etc/hosts"
+sudo sed -i "/^127\.0\.1\.1.*/d" /etc/hosts
+sudo sed -i "/^10\.11\.12\.2.*/d" /etc/hosts
+sudo sed -i "/^10\.11\.12\.3.*/d" /etc/hosts
 sudo bash -c 'cat >> /etc/hosts' << EOF
 10.11.12.2    k2
-10.11.12.3    k3 
+10.11.12.3    k3
 EOF
 
 sudo swapoff -a
